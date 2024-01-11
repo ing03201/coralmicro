@@ -49,3 +49,6 @@
 [submodule "third_party/littlefs-fuse"]
 	path = third_party/littlefs-fuse
 	url = https://github.com/google-coral/coralmicro-littlefs-fuse
+[submodule "third_party/mediapipe"]
+	path = third_party/mediapipe
+	url = https://github.com/google/mediapipe.git
