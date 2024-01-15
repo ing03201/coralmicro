@@ -61,5 +61,5 @@ else
   exit 1
 fi
 
-python3 -m pip install pip --upgrade
-python3 -m pip install -r "${SCRIPT_DIR}/scripts/requirements.txt"
+python -m pip install pip --upgrade
+pip install -r "${SCRIPT_DIR}/scripts/requirements.txt"
