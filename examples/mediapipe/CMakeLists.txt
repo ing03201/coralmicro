@@ -12,14 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-add_executable_m7(tflm_mediapipe_m7
-    image_provider.cc
-    main_functions.cc
-    hand_detection.cc
+add_executable_m7(mediapipe
+    hand_tracking.cc
     DATA
-    ${PROJECT_SOURCE_DIR}/models/hand_landmark_full.tflite
+    ${PROJECT_SOURCE_DIR}/models/hand_landmark_lite.tflite
 )
 
-target_link_libraries(tflm_mediapipe_m7
+target_link_libraries(mediapipe
     libs_base-m7_freertos
 )
