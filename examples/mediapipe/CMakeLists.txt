@@ -13,9 +13,9 @@
 # limitations under the License.
 
 add_executable_m7(mediapipe
-    hand_tracking.cc
+    face_detect_mediapipe.cc
     DATA
-    ${PROJECT_SOURCE_DIR}/models/hand_landmark_lite.tflite
+    ${PROJECT_SOURCE_DIR}/models/face-detector-quantized_edgetpu.tflite
 )
 
 target_link_libraries(mediapipe
