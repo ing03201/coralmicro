@@ -41,43 +41,6 @@ constexpr char kModelPath[] =
 constexpr int kTopK = 5;
 constexpr float kThreshold = 0.5;
 
-struct Detection {
-  float score;
-  float class_id;
-  float xmin;
-  float ymin;
-  float width;
-  float height;
-};
-
-struct Anchor {
-  float x_center;
-  float y_center;
-  float h;
-  float w;
-};
-
-struct TfLiteTensorsToDetectionsCalculatorOptions{
-    uint32_t num_classes;
-    uint32_t num_boxes;
-    uint32_t num_coords;
-    uint32_t keypoint_coord_offset;
-    uint32_t num_keypoints;
-    uint32_t num_values_per_keypoint;
-    uint32_t box_coord_offset;
-    float x_scale;
-    float y_scale;
-    float w_scale;
-    float h_scale;
-    float score_clipping_thresh;
-    float min_score_thresh;
-    bool apply_exponential_on_box_size;
-    bool reverse_output_order;
-    bool sigmoid_score;
-    bool flip_vertically;
-};
-
-std::vector<Detection> lgt_process_cpu(std::vector<float> raw_boxes, std::vector<float> raw_scores, std::vector<Anchor> anchors)
 // An area of memory to use for input, output, and intermediate arrays.
 constexpr int kTensorArenaSize = 16 * 1024 * 1024;
 STATIC_TENSOR_ARENA_IN_SDRAM(tensor_arena, kTensorArenaSize);
@@ -164,7 +127,6 @@ STATIC_TENSOR_ARENA_IN_SDRAM(tensor_arena, kTensorArenaSize);
     // copy output tensor 
     memcpy(&(regressor_vector[0]), regressors, sizeof(float) * reg_rows * reg_cols);
     memcpy(&(classification_vector[0]), classifications, sizeof(float) * cls_rows * cls_cols);
-    std::vector<Detection> detections = lgt_process_cpu(regressor_vector, classification_vector, model_height, model_width, kThreshold, kTopK);
     auto results = tensorflow::GetClassificationResults(&interpreter, kThreshold, kTopK); 
 
     // if (!results.empty()) {
