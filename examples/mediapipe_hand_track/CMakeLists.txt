@@ -12,12 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-add_executable_m7(mediapipe_face_detect
-    face_detect_mediapipe.cc
+add_executable_m7(mediapipe_hand_track
+    hand_track_mediapipe.cc
     DATA
-    ${PROJECT_SOURCE_DIR}/models/face-detector-quantized_edgetpu.tflite
+    ${PROJECT_SOURCE_DIR}/models/hand_track_edgetpu.tflite
 )
 
-target_link_libraries(mediapipe_face_detect
+target_link_libraries(mediapipe_hand_track
     libs_base-m7_freertos
 )

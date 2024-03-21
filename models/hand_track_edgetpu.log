@@ -1,0 +1,16 @@
+Edge TPU Compiler version 15.0.340273435
+Input: tflite_from_saved_model/model_full_integer_quant.tflite
+Output: tflite_from_saved_model/model_full_integer_quant_edgetpu.tflite
+
+Operator                       Count      Status
+
+RESHAPE                        4          Mapped to Edge TPU
+PRELU                          26         Mapped to Edge TPU
+ADD                            25         Mapped to Edge TPU
+MAX_POOL_2D                    4          Mapped to Edge TPU
+QUANTIZE                       3          Mapped to Edge TPU
+CONV_2D                        30         Mapped to Edge TPU
+RESIZE_BILINEAR                2          Mapped to Edge TPU
+DEPTHWISE_CONV_2D              23         Mapped to Edge TPU
+CONCATENATION                  2          Mapped to Edge TPU
+PAD                            3          Mapped to Edge TPU

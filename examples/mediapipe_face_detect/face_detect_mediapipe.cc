@@ -63,9 +63,17 @@ STATIC_TENSOR_ARENA_IN_SDRAM(tensor_arena, kTensorArenaSize);
   }
 
   tflite::MicroErrorReporter error_reporter;
-  tflite::MicroMutableOpResolver<3> resolver;
-  resolver.AddDequantize();
-  resolver.AddDetectionPostprocess();
+  tflite::MicroMutableOpResolver<11> resolver;
+  resolver.AddReshape();
+  resolver.AddPrelu();
+  resolver.AddAdd();
+  resolver.AddMaxPool2D();
+  resolver.AddQuantize();
+  resolver.AddConv2D();
+  resolver.AddResizeBilinear();
+  resolver.AddDepthwiseConv2D();
+  resolver.AddConcatenation();
+  resolver.AddPad();
   resolver.AddCustom(kCustomOp, RegisterCustomOp());
 
 
@@ -85,7 +93,7 @@ STATIC_TENSOR_ARENA_IN_SDRAM(tensor_arena, kTensorArenaSize);
   // Starting Camera.
   CameraTask::GetSingleton()->SetPower(true);
   CameraTask::GetSingleton()->Enable(CameraMode::kStreaming);
-
+  printf("Camera started\r\n");
   auto* input_tensor = interpreter.input_tensor(0);
   int model_height = input_tensor->dims->data[1];
   int model_width = input_tensor->dims->data[2];

@@ -75,6 +75,7 @@ std::vector<Object> GetDetectionResults(const float* bboxes, const float* ids,
 
 std::vector<Object> GetDetectionResults(tflite::MicroInterpreter* interpreter,
                                         float threshold, size_t top_k) {
+  const int *count_int, *ids_int;
   if (interpreter->outputs().size() != 4) {
     for(int i = 0; i < interpreter->outputs().size(); i++) {
       printf("Output dimension type %d \r\n", interpreter->output_tensor(i)->type);
@@ -82,9 +83,11 @@ std::vector<Object> GetDetectionResults(tflite::MicroInterpreter* interpreter,
     }
     printf("Output size %ld\r\n", interpreter->outputs().size());
     printf("Output size mismatch\r\n");
+    if(interpreter->outputs().size() == 2){
+      printf("first tensor data : %ld \r\n second tensor data : %ld\r\n",  interpreter->output_tensor(0)->data.int8, interpreter->output_tensor(1)->data.int8);
+    }
     return {};
   }
-
   const float *bboxes, *ids, *scores, *count;
   if (interpreter->output_tensor(2)->dims->size == 1) {
     scores = tflite::GetTensorData<float>(interpreter->output_tensor(0));
