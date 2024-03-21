@@ -128,19 +128,19 @@ STATIC_TENSOR_ARENA_IN_SDRAM(tensor_arena, kTensorArenaSize);
     // copy output tensor 
     memcpy(&(regressor_vector[0]), regressors, sizeof(float) * reg_rows * reg_cols);
     memcpy(&(classification_vector[0]), classifications, sizeof(float) * cls_rows * cls_cols);
-    // auto results = tensorflow::GetClassificationResults(&interpreter, kThreshold, kTopK); 
-    auto results = tensorflow::GetDetectionResults(&interpreter, kThreshold, kTopK);
+    auto results = tensorflow::GetClassificationResults(&interpreter, kThreshold, kTopK); 
+    // auto results = tensorflow::GetDetectionResults(&interpreter, kThreshold, kTopK);
 
-    // if (!results.empty()) {
-    //   for(auto result : results){
-    //     printf("Label ID: %d, Score: %f\r\n", result.id, result.score);
-    //   }
-    //   printf("Found %d face(s):\r\n%s\r\n", results.size(),
-    //          tensorflow::FormatClassificationOutput(results).c_str());
-    //   LedSet(Led::kUser, true);
-    // } else {
-    //   LedSet(Led::kUser, false);
-    // }
+    if (!results.empty()) {
+      for(auto result : results){
+        printf("Label ID: %d, Score: %f\r\n", result.id, result.score);
+      }
+      printf("Found %d face(s):\r\n%s\r\n", results.size(),
+             tensorflow::FormatClassificationOutput(results).c_str());
+      LedSet(Led::kUser, true);
+    } else {
+      LedSet(Led::kUser, false);
+    }
   }
 }
 
